@@ -9,7 +9,7 @@ services:
     build:
       context: ./hackmd
     environment:
-      - GROWI_URI=http://CHANGE-HERE
+      - GROWI_URI=http://35.200.49.246
       - CMD_DB_URL=mysql://hackmd:hackmdpass@mariadb:3306/hackmd
       - CMD_CSP_ENABLE=false
     ports:
