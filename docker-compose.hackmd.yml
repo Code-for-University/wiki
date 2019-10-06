@@ -9,7 +9,7 @@ services:
     build:
       context: ./hackmd
     environment:
-      - GROWI_URI=https://wiki.aitaro.dev
+      - GROWI_URI=https://wiki.code4univ.org
       - CMD_DB_URL=mysql://hackmd:hackmdpass@mariadb:3306/hackmd
       - CMD_CSP_ENABLE=false
     ports:
@@ -41,7 +41,7 @@ services:
     links:
       - hackmd:hackmd
     environment:
-      DOMAINS: 'hackmd.wiki.aitaro.dev -> http://hackmd:3000'
+      DOMAINS: 'hackmd.code4univ.org -> http://hackmd:3000'
       STAGE: 'production'
       FORCE_RENEW: 'false'
       WEBSOCKET: 'true'
