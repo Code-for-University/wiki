@@ -22,7 +22,7 @@ services:
       # - MATHJAX=1             # activate this line if you want to use MathJax
       # - PLANTUML_URI=http://  # activate this line and specify if you use your own PlantUML server rather than public plantuml.com
       - HACKMD_URI=https://wiki.aitaro.dev    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
-      - HACKMD_URI_FOR_SERVER=http://hackmd:3001  # activate this line and specify HackMD server URI which can be accessed from this server container
+      - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
       # - FORCE_WIKI_MODE='public'    # activate this line to force wiki public mode
       # - FORCE_WIKI_MODE='private'   # activate this line to force wiki private mode
 
@@ -102,6 +102,23 @@ services:
     restart: unless-stopped
     volumes:
       - https-portal_data:/var/lib/https-portal
+
+  # https-portal:
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   links:
+  #     - app:app
+  #   environment:
+  #     DOMAINS: 'hackmd.wiki.aitaro.dev -> http://hackmd:3000'
+  #     STAGE: 'production'
+  #     FORCE_RENEW: 'false'
+  #     WEBSOCKET: 'true'
+  #     CLIENT_MAX_BODY_SIZE: 0
+  #   restart: unless-stopped
+  #   volumes:
+  #     - https-portal_data:/var/lib/https-portal
 
 volumes:
   growi_data:
