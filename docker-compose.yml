@@ -17,12 +17,12 @@ services:
       - MONGO_URI=mongodb://mongo:27017/growi
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi
       - PASSWORD_SEED=changeme
+      - HACKMD_URI=https://hackmd.wiki.code4univ.org    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
+      - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
       # - FILE_UPLOAD=mongodb   # activate this line if you use MongoDB GridFS rather than AWS
       # - FILE_UPLOAD=local     # activate this line if you use local storage of server rather than AWS
       # - MATHJAX=1             # activate this line if you want to use MathJax
       # - PLANTUML_URI=http://  # activate this line and specify if you use your own PlantUML server rather than public plantuml.com
-      - HACKMD_URI=https://hackmd.code4univ.org    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
-      - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
       # - FORCE_WIKI_MODE='public'    # activate this line to force wiki public mode
       # - FORCE_WIKI_MODE='private'   # activate this line to force wiki private mode
 
@@ -58,6 +58,34 @@ services:
       - es_data:/usr/share/elasticsearch/data
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 
+  hackmd:
+    build:
+      context: ./hackmd
+    environment:
+      - GROWI_URI=https://wiki.code4univ.org
+      - CMD_DB_URL=mysql://hackmd:hackmdpass@mariadb:3306/hackmd
+      - CMD_CSP_ENABLE=false
+    ports:
+      - 3001:3000   # localhost only by default
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  ##
+  # MariaDB
+  # see https://hub.docker.com/_/mariadb/
+  mariadb:
+    image: mariadb:10.3
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    environment:
+      - MYSQL_USER=hackmd
+      - MYSQL_PASSWORD=hackmdpass
+      - MYSQL_DATABASE=hackmd
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+    restart: unless-stopped
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
   https-portal:
     image: steveltn/https-portal:1
     ports:
@@ -66,7 +94,7 @@ services:
     links:
       - app:app
     environment:
-      DOMAINS: 'wiki.code4univ.org -> http://app:3000', 'hackmd.code4univ.org -> http://hackmd:3000'
+      DOMAINS: 'wiki.code4univ.org -> http://app:3000, hackmd.code4univ.org -> http://hackmd:3000'
       STAGE: 'production'
       FORCE_RENEW: 'false'
       WEBSOCKET: 'true'
@@ -82,3 +110,4 @@ volumes:
   mariadb_data:
   es_data:
   https-portal_data:
+  mariadb_data:
