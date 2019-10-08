@@ -66,7 +66,7 @@ services:
     links:
       - app:app
     environment:
-      DOMAINS: 'wiki.code4univ.org -> http://app:3000'
+      DOMAINS: 'wiki.code4univ.org -> http://app:3000', 'hackmd.code4univ.org -> http://hackmd:3000'
       STAGE: 'production'
       FORCE_RENEW: 'false'
       WEBSOCKET: 'true'
