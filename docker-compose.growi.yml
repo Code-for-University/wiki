@@ -21,8 +21,8 @@ services:
       # - FILE_UPLOAD=local     # activate this line if you use local storage of server rather than AWS
       # - MATHJAX=1             # activate this line if you want to use MathJax
       # - PLANTUML_URI=http://  # activate this line and specify if you use your own PlantUML server rather than public plantuml.com
-      # - HACKMD_URI=https://hackmd.code4univ.org    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
-      - HACKMD_URI_FOR_SERVER=http://hackmd:3030  # activate this line and specify HackMD server URI which can be accessed from this server container
+      - HACKMD_URI=https://wiki.code4univ.org:3100    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
+      - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
       # - FORCE_WIKI_MODE='public'    # activate this line to force wiki public mode
       # - FORCE_WIKI_MODE='private'   # activate this line to force wiki private mode
 
@@ -39,11 +39,11 @@ services:
     build:
       context: ./hackmd
     environment:
-      - GROWI_URI=https://wiki.code4univ.org
+      - GROWI_URI=https://wiki.code4univ.org:3000
       - CMD_DB_URL=mysql://hackmd:hackmdpass@mariadb:3306/hackmd
       - CMD_CSP_ENABLE=false
     ports:
-      - 3030   # localhost only by default
+      - 3100:3000   # localhost only by default
     depends_on:
       - mariadb
     restart: unless-stopped
