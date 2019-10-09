@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 3000:3000    # localhost only by default
+      - 3000    # localhost only by default
     links:
       - mongo:mongo
       - elasticsearch:elasticsearch
@@ -107,7 +107,6 @@ volumes:
   growi_data:
   mongo_configdb:
   mongo_db:
-  mariadb_data:
   es_data:
   https-portal_data:
   mariadb_data:
