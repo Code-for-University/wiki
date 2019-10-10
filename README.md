@@ -3,7 +3,7 @@ Code for Univ.のwiki用リポジトリ
 
 仕様
 - サーバはGCPインスタンスを使用
-- markdownでwikiが書けるgrowi(https://growi.org/)と共同編集できるhackmd(https://hackmd.io/)を利用中
+- markdownでwikiが書けるgrowi( https://growi.org )と共同編集できるhackmd( https://hackmd.io )を利用中
 
 運用方法
 - 開発を進めてリポジトリ上にpush
