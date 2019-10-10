@@ -1,3 +1,15 @@
+Code for Univ.のwiki用リポジトリ
+=====================
+
+仕様
+- サーバはGCPインスタンスを使用
+- markdownでwikiが書けるgrowi(https://growi.org/)と共同編集できるhackmd(https://hackmd.io/)を利用中
+
+運用方法
+- 開発を進めてリポジトリ上にpush
+- ローカルで動作確認後、GCP内でmasterをデプロイ
+
+
 growi-docker-compose
 =====================
 
